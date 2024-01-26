@@ -1,13 +1,15 @@
 import { Button, Form } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ContenedorCards from "./ContenedorCards";
 
 const FormularioColores = () => {
-  /* Variables */
+  /* Variables------------------------------------------------- */
   const [inputColor, setInputColor] = useState("");
-  const [arrayColores, setArrayColores] = useState([]);
+  const arrayColoresLocalStorage =
+    JSON.parse(localStorage.getItem("coloresKey")) || [];
+  const [arrayColores, setArrayColores] = useState(arrayColoresLocalStorage);
 
-  /* Funciones */
+  /* Funciones -------------------------------------------- */
 
   const manejadorSubmit = (e) => {
     e.preventDefault();
@@ -18,16 +20,19 @@ const FormularioColores = () => {
       setArrayColores([...arrayColores, inputColor]);
       setInputColor("");
     }
-
   };
 
   const borrarColor = (colorBorrado) => {
     const copiaArrayColores = arrayColores.filter(
       (copiaColor) => copiaColor !== colorBorrado
     );
-    setArrayColores(copiaArrayColores)
+    setArrayColores(copiaArrayColores);
   };
-  /* Maquetado - log ext */
+
+  useEffect(() => {
+    localStorage.setItem("coloresKey", JSON.stringify(arrayColores));
+  }, [arrayColores]);
+  /* Maquetado - log ext---------------------------------------- */
 
   return (
     <>
@@ -58,7 +63,10 @@ const FormularioColores = () => {
           </div>
         </Form.Group>
       </Form>
-      <ContenedorCards arrayColores={arrayColores} borrarColor={borrarColor}></ContenedorCards>
+      <ContenedorCards
+        arrayColores={arrayColores}
+        borrarColor={borrarColor}
+      ></ContenedorCards>
     </>
   );
 };
