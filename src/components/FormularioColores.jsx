@@ -2,7 +2,6 @@ import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import ContenedorCards from "./ContenedorCards";
 
-
 const FormularioColores = () => {
   /* Variables */
   const [inputColor, setInputColor] = useState("");
@@ -12,8 +11,21 @@ const FormularioColores = () => {
 
   const manejadorSubmit = (e) => {
     e.preventDefault();
-    setArrayColores([...arrayColores, inputColor]);
-    setInputColor("");
+
+    if (inputColor === "") {
+      alert("Ingrese un color antes de guardar");
+    } else {
+      setArrayColores([...arrayColores, inputColor]);
+      setInputColor("");
+    }
+
+  };
+
+  const borrarColor = (colorBorrado) => {
+    const copiaArrayColores = arrayColores.filter(
+      (copiaColor) => copiaColor !== colorBorrado
+    );
+    setArrayColores(copiaArrayColores)
   };
   /* Maquetado - log ext */
 
@@ -46,7 +58,7 @@ const FormularioColores = () => {
           </div>
         </Form.Group>
       </Form>
-      <ContenedorCards arrayColores={arrayColores}></ContenedorCards>
+      <ContenedorCards arrayColores={arrayColores} borrarColor={borrarColor}></ContenedorCards>
     </>
   );
 };
