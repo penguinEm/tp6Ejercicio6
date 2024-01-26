@@ -10,7 +10,6 @@ function App() {
     <>
       <Container className="border border-primary rounded-5 mt-5 mb-5" >
         <FormularioColores></FormularioColores>
-        <ContenedorCards></ContenedorCards>
       </Container>
     </>
   )

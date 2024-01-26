@@ -1,15 +1,15 @@
 import CardsColores from "./CardsColores";
 
-
-const ContenedorCards = () => {
-    return (
-        <div className="mb-5 d-flex justify-content-around row">
-            <CardsColores></CardsColores>
-            <CardsColores></CardsColores>
-            
-        
-        </div>
-    );
+const ContenedorCards = ({arrayColores}) => {
+  return (
+    <div className="mb-5 d-flex justify-content-around row">
+     {
+        arrayColores.map((color, posicionColor) => <CardsColores key={posicionColor}></CardsColores>)
+     }
+     
+      
+    </div>
+  );
 };
 
 export default ContenedorCards;
